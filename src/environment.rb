@@ -1,4 +1,6 @@
 class Environment
+  OPERATORS = %i[== != < <= > >= + - * /]
+
   def initialize(extra = {})
     @env = {
 
