@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative '../src/parser'
 
-class LispTest < Minitest::Test
+class ParserTest < Minitest::Test
   def test_parser1
     program = '(begin (define r 10) (* pi (* r r)))'
     tokens = ['begin', ['define', 'r', 10], ['*', 'pi', ['*', 'r', 'r']]]
