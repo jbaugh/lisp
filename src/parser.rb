@@ -50,7 +50,7 @@ class Parser
     elsif token[/\d+/]
       token.to_i
     else
-      token.to_s
+      token.to_sym
     end
   end
 end
