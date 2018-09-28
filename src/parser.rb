@@ -9,6 +9,7 @@ class Parser
 
   protected
 
+  # Splits the code into logical chunks
   def tokenize
     @code.gsub(/\s\s+/, ' ')
          .gsub('(', ' ( ')
@@ -16,6 +17,8 @@ class Parser
          .split(' ')
   end
 
+  # Once we have tokens, we want to break them down into an Abstract
+  # Syntax Tree.
   def parse_tokens(tokens)
     return if tokens.empty?
 
@@ -30,17 +33,17 @@ class Parser
     end
   end
 
+  # Used for parsing nested expressions.
+  # We go through each token, adding it to a nested list, and then terminate
+  # when a closing paren ')' is reached.
   def parse_expression(tokens)
     list = []
-
-    while tokens.first != ')'
-      list << parse_tokens(tokens)
-    end
+    list << parse_tokens(tokens) while tokens.first != ')'
     tokens.shift
-
     list
   end
 
+  # Returns the atom equivalent of the token
   def atom(token)
     if token[/\.\d+/]
       token.to_f
