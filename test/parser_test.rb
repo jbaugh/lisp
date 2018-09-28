@@ -10,7 +10,7 @@ class LispTest < Minitest::Test
 
   def test_parser2
     program = '(+ 1 2)'
-    tokens = ["+", 1, 2]
+    tokens = ['+', 1, 2]
     assert_equal Parser.new(program).parse, tokens
   end
 
