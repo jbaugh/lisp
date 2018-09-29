@@ -3,6 +3,13 @@ class Environment
 
   def initialize(extra = {})
     @env = {
+      true:   lambda { |*list| true },
+      false:  lambda { |*list| false },
+      list:   lambda { |*list| Array(list) },
+      null?:  lambda { |list| list.empty? },
+      min:    lambda { |*list| list.min },
+      max:    lambda { |*list| list.max },
+      eq?:    lambda { |(l, r), ctx| eval(l, ctx) == eval(r, ctx) },
       car:    lambda { |*list| list[0] },
       cdr:    lambda { |*list| list.drop 1 },
       cons:   lambda { |(e, cell), _| [e] + cell }
