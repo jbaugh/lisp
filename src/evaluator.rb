@@ -23,12 +23,12 @@ class Evaluator
       _, params, e = expr
       # Evaluates the lambda in the context of this environment
       env.merge(Hash[params.zip(args)])
-      lambda { |*args| self.eval(env, e) }
+      lambda { |*_args| eval(env, e) }
     else
       # Handles a list expression
       code = eval(env, expr[0])
       # Gets remaining arguments, and evaluates them
-      args = expr[1..-1].map{ |arg| eval(env, arg) }
+      args = expr[1..-1].map { |arg| eval(env, arg) }
       # Calls function found in code, passing in evaluated arguments
       code.(*args)
     end
