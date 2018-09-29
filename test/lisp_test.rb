@@ -21,4 +21,12 @@ class LispTest < Minitest::Test
     ast = [:+, 1, 2, 3, 4]
     assert_equal Lisp.new.eval(ast), 10
   end
+
+  def test_list_define
+    asts = [[:define, :r, 10], [:define, :pi, 3.14], [:*, :pi, [:*, :r, :r]]]
+    lisp = Lisp.new
+    asts.each do |ast|
+      lisp.eval(ast)
+    end
+  end
 end
