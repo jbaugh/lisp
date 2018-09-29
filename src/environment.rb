@@ -1,5 +1,5 @@
 class Environment
-  OPERATORS = %i[== != < <= > >= + - * /]
+  ARITHMETIC_OPS = %i[== != < <= > >= + - * /]
 
   def initialize(extra = {})
     @env = {
@@ -7,6 +7,11 @@ class Environment
       cdr:    lambda { |*list| list.drop 1 },
       cons:   lambda { |(e, cell), _| [e] + cell }
     }.merge(extra)
+
+    # Defines lambdas for the operators
+    ARITHMETIC_OPS.inject({}) do |scope, operator|
+      @env.merge!(operator => lambda { |*args| args.inject(&operator) })
+    end
   end
 
   def get(key)
