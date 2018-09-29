@@ -11,4 +11,14 @@ class LispTest < Minitest::Test
     ast = [:quote, 1]
     assert_equal Lisp.new.eval(ast), [1]
   end
+
+  def test_lisp_if
+    ast = [:if, [:<, 1, 2], 1, 2]
+    assert_equal Lisp.new.eval(ast), 1
+  end
+
+  def test_lisp_addition
+    ast = [:+, 1, 2, 3, 4]
+    assert_equal Lisp.new.eval(ast), 10
+  end
 end
