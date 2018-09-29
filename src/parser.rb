@@ -20,7 +20,6 @@ class Parser
     return if tokens.empty?
 
     token = tokens.shift
-
     if '(' == token
       parse_expression(tokens)
     elsif ')' == token
