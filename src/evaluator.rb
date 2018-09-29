@@ -1,6 +1,6 @@
 require_relative 'environment'
 
-class Lisp
+class Evaluator
   def initialize(env = {})
     @env = Environment.new(env)
   end
