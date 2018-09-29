@@ -8,8 +8,7 @@ class Parser
 
   # Splits the code into logical chunks
   def tokenize
-    @code.gsub(/\s\s+/, ' ')
-         .gsub('(', ' ( ')
+    @code.gsub('(', ' ( ')
          .gsub(')', ' ) ')
          .split(' ')
   end

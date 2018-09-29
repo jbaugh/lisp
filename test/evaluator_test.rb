@@ -23,6 +23,16 @@ class EvaluatorTest < Minitest::Test
     assert_equal Evaluator.new.eval(Environment.new, ast), 10
   end
 
+  def test_evaluator_eq_false
+    ast = [:eq?, 1, 2]
+    assert_equal Evaluator.new.eval(Environment.new, ast), false
+  end
+
+  def test_evaluator_eq_true
+    ast = [:eq?, 1, 1]
+    assert_equal Evaluator.new.eval(Environment.new, ast), true
+  end
+
   def test_evaluator_define
     asts = [[:define, :r, 10], [:define, :pi, 3.14], [:*, :pi, [:*, :r, :r]]]
     evaluator = Evaluator.new
