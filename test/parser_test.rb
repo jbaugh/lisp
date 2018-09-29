@@ -21,4 +21,10 @@ class ParserTest < Minitest::Test
   def test_parser4
     assert_equal Parser.new('foo').parse, :foo
   end
+
+  def test_parser_quote
+    program = "(car '(1 2 3))"
+    tokens = [:car, :quote, [1, 2, 3]]
+    assert_equal Parser.new(program).parse, tokens
+  end
 end

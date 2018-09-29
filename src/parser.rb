@@ -49,6 +49,8 @@ class Parser
       token.to_f
     elsif token[/\d+/]
       token.to_i
+    elsif token == "'"
+      :quote
     else
       token.to_sym
     end
