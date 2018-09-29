@@ -1,9 +1,6 @@
 class Parser
-  def initialize(code)
+  def parse(code)
     @code = code
-  end
-
-  def parse
     parse_tokens(tokenize)
   end
 
