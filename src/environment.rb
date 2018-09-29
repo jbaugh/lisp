@@ -1,22 +1,11 @@
 class Environment
-  ARITHMETIC_OPS = %i[== != < <= > >= + - * /]
+  ARITHMETIC_OPS = %i(== != < <= > >= + - * /).freeze
 
   def initialize(extra = {})
-    @env = {
-      true:   lambda { |*list| true },
-      false:  lambda { |*list| false },
-      list:   lambda { |*list| Array(list) },
-      null?:  lambda { |list| list.empty? },
-      min:    lambda { |*list| list.min },
-      max:    lambda { |*list| list.max },
-      eq?:    lambda { |(l, r), ctx| eval(l, ctx) == eval(r, ctx) },
-      car:    lambda { |*list| list[0] },
-      cdr:    lambda { |*list| list.drop 1 },
-      cons:   lambda { |(e, cell), _| [e] + cell }
-    }.merge(extra)
+    @env = built_in_funcs.merge(extra)
 
     # Defines lambdas for the operators
-    ARITHMETIC_OPS.inject({}) do |scope, operator|
+    ARITHMETIC_OPS.inject({}) do |_scope, operator|
       @env.merge!(operator => lambda { |*args| args.inject(&operator) })
     end
   end
@@ -31,5 +20,22 @@ class Environment
 
   def merge(opts = {})
     @env.merge!(opts)
+  end
+
+  protected
+
+  def built_in_funcs
+    {
+      true:   lambda { |*_list| true },
+      false:  lambda { |*_list| false },
+      list:   lambda { |*list| Array(list) },
+      null?:  lambda { |list| list.empty? },
+      min:    lambda { |*list| list.min },
+      max:    lambda { |*list| list.max },
+      eq?:    lambda { |*list| list.inject(&:==) },
+      car:    lambda { |*list| list[0] },
+      cdr:    lambda { |*list| list.drop 1 },
+      cons:   lambda { |(e, cell), _| [e] + cell }
+    }
   end
 end
