@@ -14,8 +14,23 @@ class Vm
                     .gsub('\n', ' ')
                     .gsub(')(', ') (')
                     .gsub(') (', ')\n(')
+    output = nil
     codes.split('\n').each do |code|
-      @evaluator.eval(@env, @parser.parse(code))
+      output = @evaluator.eval(@env, @parser.parse(code))
+    end
+    output
+  end
+
+  def repl(prompt = '> ')
+    while true
+      print prompt
+      program = gets
+
+      begin
+        puts run(program)
+      rescue Exception => ex
+        puts ex
+      end
     end
   end
 
