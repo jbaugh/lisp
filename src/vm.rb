@@ -10,15 +10,20 @@ class Vm
   end
 
   def run(code_str)
-    codes = code_str.gsub(/\s\s+/, ' ')
-                    .gsub('\n', ' ')
-                    .gsub(')(', ') (')
-                    .gsub(') (', ')\n(')
+    codes = sanitize_code(code_str)
+    # We want to return last executed result
     output = nil
     codes.split('\n').each do |code|
       output = @evaluator.eval(@env, @parser.parse(code))
     end
     output
+  end
+
+  def sanitize_code(code_str)
+    code_str.gsub(/\s\s+/, ' ')
+            .gsub('\n', ' ')
+            .gsub(')(', ') (')
+            .gsub(') (', ')\n(')
   end
 
   def repl(prompt = '> ')
