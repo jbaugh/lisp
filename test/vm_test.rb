@@ -9,4 +9,10 @@ class VmTest < Minitest::Test
     assert_equal vm.peek(:r), 10
     assert_equal vm.peek(:a), 314.0
   end
+
+  def test_run_returns
+    program = '(* 5 10 (+ 1 2))'
+    vm = Vm.new
+    assert_equal vm.run(program), 150
+  end
 end
