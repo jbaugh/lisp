@@ -1,1 +1,5 @@
 Just a fun experiment in building a lisp interpreter.
+
+
+To run all tests:
+$ for file in test/*.rb; do ruby $file; done
